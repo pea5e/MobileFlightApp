@@ -26,8 +26,6 @@ namespace LaRamApp.Models
 
         public ICollection<Session> Sessions { get; } = new List<Session>();
 
-        public ICollection<Checking> Checkings { get; } = new List<Checking>();
-
 
 
     }

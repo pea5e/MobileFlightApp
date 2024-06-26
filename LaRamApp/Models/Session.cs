@@ -17,5 +17,7 @@ namespace LaRamApp.Models
         public string SessionId { get; set; }
         public Pilot Pilot { get; set; }
         public ICollection<Flight> Flights { get; set; }
+
+        public Checking Checkings { get; set; }
     }
 }

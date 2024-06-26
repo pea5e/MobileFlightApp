@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using Android.Util;
 using System.Text;
 using LaRamApp.Models;
+using System.Threading.Tasks;
 
 
 namespace LaRamApp
@@ -29,11 +30,18 @@ namespace LaRamApp
         EditText password;
         Button login;
         TextView switchTo;
+        localDb Db;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.LoginLayout);
+            Db = new localDb();
+            SessionDb session = Db.GetSession();
+            if ( session != null && session.sessionId != null && session.sessionId != "")
+            {
+                isLogged(session.sessionId);
+            }
             email = FindViewById<EditText>(Resource.Id.email);
             password = FindViewById<EditText>(Resource.Id.password);
             login = FindViewById<Button>(Resource.Id.login);
@@ -54,6 +62,7 @@ namespace LaRamApp
                     Toast.MakeText(this, "Mot de passe Obligaroire", ToastLength.Short).Show();
                 else {
                     Logged(mail, pass);
+                    
                 }
             };
 
@@ -64,10 +73,37 @@ namespace LaRamApp
             using (var client = new HttpClient())
             {
                 string uri = "http://10.0.2.2:5207";
-                //var result = await client.GetStringAsync(uri + "/api/Airports");
                 var data = new LoginDTO();
                 data.Email = email;
                 data.Password = password;
+
+                var json = JsonConvert.SerializeObject(data);
+                var d = new StringContent(json, Encoding.UTF8, "application/json");
+                var result = await client.PostAsync(uri+"/api/Pilots/login", d);
+                string resultContent = await result.Content.ReadAsStringAsync();
+
+                //handling the answer  
+                var session = JsonConvert.DeserializeObject<Session>(resultContent);
+                if(session.SessionId!=null)
+                {
+                    Db.LogSession(session.SessionId);
+                    StartActivity(new Intent(this, typeof(MainActivity)));
+                    return;
+                    
+                }
+                Toast.MakeText(this, "Bad Credentials", ToastLength.Short).Show();
+
+            }
+        }
+
+        public async void isLogged(string sessionId)
+        {
+            using (var client = new HttpClient())
+            {
+                string uri = "http://10.0.2.2:5207";
+                //var result = await client.GetStringAsync(uri + "/api/Airports");
+                var data = new SessionDTO();
+                data.SessionId = sessionId;
 
                 var json = JsonConvert.SerializeObject(data);
                 var d = new StringContent(json, Encoding.UTF8, "application/json");
@@ -76,17 +112,19 @@ namespace LaRamApp
                     new KeyValuePair<string, string>("Email", email),
                     new KeyValuePair<string, string>("Password", password)
                 });*/
-                var result = await client.PostAsync(uri+"/api/Pilots/login", d);
+                var result = await client.PostAsync(uri + "/api/Sessions", d);
                 string resultContent = await result.Content.ReadAsStringAsync();
 
                 //handling the answer  
-                var session = JsonConvert.DeserializeObject<Session>(resultContent);
-                Toast.MakeText(this, session.SessionId, ToastLength.Short).Show();
+                var pilot = JsonConvert.DeserializeObject<Pilot>(resultContent);
+                
+                if(pilot.Email != null)
+                    StartActivity(new Intent(this, typeof(MainActivity)));
                 //Log.Info("Session", session.SessionId);
 
             }
         }
-            
+
 
     }
 
@@ -94,6 +132,11 @@ namespace LaRamApp
     {
         public String Email { get; set; }
         public String Password { get; set; }
+    }
+
+    public class SessionDTO
+    {
+        public string SessionId { get; set; }
     }
 
 }

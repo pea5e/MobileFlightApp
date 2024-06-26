@@ -17,7 +17,7 @@ namespace LaRamApp.Models
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
         public Airport Localisation { get; set; }
-        public Pilot Pilot { get; set; }
+        public Session Session { get; set; }
 
     }
 }
