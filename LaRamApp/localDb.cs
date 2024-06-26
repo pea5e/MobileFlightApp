@@ -47,9 +47,9 @@ namespace LaRamApp
                         select s;
             return sess.FirstOrDefault();
         }
-        public void delSession(string sessionId)
+        public void delSession()
         {
-            db.Delete<SessionDb>(GetSession(sessionId).Id);
+            db.Delete<SessionDb>(GetSession().Id);
         }
     }
 
