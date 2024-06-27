@@ -73,9 +73,6 @@ namespace LaRamApp
             myHolder.line.Click += delegate
             {
                 reserver(item.Plane);
-                Intent i = new Intent(Application.Context, typeof(Planning));
-                i.AddFlags(ActivityFlags.NewTask);
-                Application.Context.StartActivity(i);
             };
         }
         public override int ItemCount
@@ -96,6 +93,9 @@ namespace LaRamApp
                 var json = JsonConvert.SerializeObject(data);
                 var d = new StringContent(json, Encoding.UTF8, "application/json");
                 var result = await client.PostAsync(uri + "/api/Checkings/Schedule", d);
+                Intent i = new Intent(Application.Context, typeof(Planning));
+                i.AddFlags(ActivityFlags.NewTask);
+                Application.Context.StartActivity(i);
 
             }
         }
