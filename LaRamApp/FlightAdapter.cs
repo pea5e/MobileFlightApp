@@ -68,12 +68,14 @@ namespace LaRamApp
             myHolder.refer.Text = item.Ref;
             myHolder.plane.Text = item.Plane;
             myHolder.depart.Text = item.Depart.ToShortTimeString();
-            myHolder.arrive.Text = item.Depart.ToShortTimeString();
+            myHolder.arrive.Text = item.Arrive.ToShortTimeString();
             myHolder.destination.Text = item.To.City+" "+ item.To.Country;
             myHolder.line.Click += delegate
             {
                 reserver(item.Plane);
-                Application.Context.StartActivity(new Intent(Application.Context, typeof(Planning)));
+                Intent i = new Intent(Application.Context, typeof(Planning));
+                i.AddFlags(ActivityFlags.NewTask);
+                Application.Context.StartActivity(i);
             };
         }
         public override int ItemCount

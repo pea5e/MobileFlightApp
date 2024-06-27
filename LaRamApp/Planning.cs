@@ -29,7 +29,7 @@ namespace LaRamApp
             recyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
             SessionDTO sessionDTO = new SessionDTO();
             sessionDTO.SessionId = new localDb().GetSession().sessionId;
-            
+
             getVols(sessionDTO);
 
         }
@@ -42,15 +42,20 @@ namespace LaRamApp
 
                 var json = JsonConvert.SerializeObject(sessionDTO);
                 var d = new StringContent(json, Encoding.UTF8, "application/json");
-                //Toast.MakeText(this, result, ToastLength.Short).Show();
-                /*{
-                    new KeyValuePair<string, string>("Email", email),
-                    new KeyValuePair<string, string>("Password", password)
-                });*/
+                
                 var result = await client.PostAsync(uri + "/api/Flights", d);
                 string resultContent = await result.Content.ReadAsStringAsync();
-
-                List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(resultContent);
+                List<Flight> flights;
+                try
+                {
+                     flights = JsonConvert.DeserializeObject<List<Flight>>(resultContent);
+                }
+                catch (Exception ex) {
+                    flights = new List<Flight>
+                    {
+                        JsonConvert.DeserializeObject<Flight>(resultContent)
+                    };
+                }
                 FlightAdapter adapter = new FlightAdapter(flights);
                 recyclerView.SetAdapter(adapter);
 
@@ -60,3 +65,4 @@ namespace LaRamApp
             }
         }
     }
+}
