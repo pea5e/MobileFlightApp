@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="20dp"
+    android:background="@color/colorAccent"
+    android:id="@+id/line">
+    <TextView
+        android:text="Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="25px"
+        android:id="@+id/refer"
+        android:gravity="center"
+        android:minHeight="25px" />
+    <TextView
+        android:text="Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="25px"
+        android:id="@+id/plane"
+        android:gravity="center"
+        android:minHeight="25px" />
+    <LinearLayout 
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <ImageView
+        android:src="@drawable/flight_takeoff"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/imageView1"/>
+     <TextView
+        android:text="Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="100dp"
+        android:layout_marginHorizontal="30dp"
+        android:id="@+id/depart"
+        android:minHeight="25px" />
+      <TextView
+        android:text="Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="100dp"
+        android:id="@+id/arrive"
+        android:gravity="right"
+        android:minHeight="25px" />
+    </LinearLayout>
+    <TextView
+        android:text="Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="25px"
+        android:id="@+id/destination"
+        android:gravity="center"
+        android:minHeight="25px" />
+</LinearLayout>

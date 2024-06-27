@@ -60,7 +60,11 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirportAdapter.cs" />
+    <Compile Include="Destination.cs" />
+    <Compile Include="FlightAdapter.cs" />
     <Compile Include="localDb.cs" />
+    <Compile Include="Locate.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\Airport.cs" />
@@ -68,6 +72,7 @@
     <Compile Include="Models\Flight.cs" />
     <Compile Include="Models\Pilot.cs" />
     <Compile Include="Models\Session.cs" />
+    <Compile Include="Planning.cs" />
     <Compile Include="Register.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -138,6 +143,29 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Locate.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Airport.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Destination.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Flight.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\flight_takeoff.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

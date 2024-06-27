@@ -32,6 +32,10 @@ namespace LaRamApp
                 Db.delSession();
                 StartActivity(new Intent(this, typeof(Login)));
             };
+            check.Click += delegate
+            {
+                StartActivity(new Intent(this, typeof(Locate)));
+            };
         }
 
 	}
